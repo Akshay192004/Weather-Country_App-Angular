@@ -41,6 +41,38 @@
     padding: 0 20px;
   }
   
+  .typewriter {
+    overflow: hidden;
+    border-right: .12em solid rgba(30, 60, 114, 0.9);
+    white-space: nowrap;
+    letter-spacing: 0.12em;
+    animation:
+      typing 2s steps(30, end),
+      caret 0.75s step-end infinite;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    font-size: 2rem;
+    display: inline-block;
+    max-width: 100%;
+  }
+
+  .humanized-title,
+  .typewriter {
+    font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+    letter-spacing: 0.04em;
+    color: #0e2f4e;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  }
+
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  @keyframes caret {
+    50% { border-color: transparent; }
+  }
+  
   /* Utility Classes */
   .text-primary { color: var(--primary-color); }
   .text-secondary { color: var(--secondary-color); }

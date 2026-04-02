@@ -1,1 +1,27 @@
-<p>current-weather works!</p>
+<div class="current-weather-card">
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title humanized-title">Current Weather</h3>
+      <div class="weather-main">
+        <div class="weather-icon">
+          <img [src]="getWeatherIconUrl(currentWeather.icon)" [alt]="currentWeather.description" />
+        </div>
+        <div class="temperature">
+          <span class="temp-value">{{ currentWeather.temperature | number:'1.0-0' }}</span><span class="temp-unit">°C</span>
+        </div>
+        <div class="description">{{ currentWeather.description | titlecase }}</div>
+      </div>
+      <div class="weather-details">
+        <div class="detail-item">
+          <i class="bi bi-thermometer-half"></i>Feels like: {{ currentWeather.feelsLike | number:'1.0-0' }}°C
+        </div>
+        <div class="detail-item">
+          <i class="bi bi-droplet"></i>Humidity: {{ currentWeather.humidity }}%
+        </div>
+        <div class="detail-item">
+          <i class="bi bi-wind"></i>Wind: {{ currentWeather.windSpeed | number:'1.0-0' }} m/s
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

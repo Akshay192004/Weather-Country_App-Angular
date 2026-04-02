@@ -3,9 +3,12 @@
   flex-direction: column;
   min-height: 100vh;
   background: linear-gradient(135deg, #e8f4f8 0%, #f0f8fc 100%);
+  align-items: center;
+  text-align: center;
 }
 
 .app-header {
+  width: min(100%, 1100px);
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   color: white;
   padding: 1.5rem 0;
@@ -36,14 +39,16 @@
 
 .app-content {
   flex: 1;
-  padding: 2.5rem 0;
+  width: min(100%, 1100px);
+  padding: 2rem 0;
   animation: fadeIn 0.5s ease;
 }
 
 .app-footer {
+  width: min(100%, 1100px);
   background: linear-gradient(135deg, #1e3c72 0%, #0f2340 100%);
   color: #f8f9fa;
-  padding: 2rem 0;
+  padding: 1.5rem 0;
   font-size: 0.9rem;
   text-align: center;
   box-shadow: 0 -4px 12px rgba(30, 60, 114, 0.15);
