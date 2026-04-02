@@ -1,0 +1,126 @@
+.current-weather-card {
+  .card {
+    border-radius: 16px;
+    overflow: hidden;
+    border: none;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    box-shadow: 0 12px 32px rgba(30, 60, 114, 0.25);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+      opacity: 0.5;
+    }
+    
+    &:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 40px rgba(30, 60, 114, 0.35);
+    }
+    
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+      padding-bottom: 1rem;
+      letter-spacing: 0.5px;
+    }
+  }
+  
+  .weather-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+    
+    .weather-icon {
+      position: relative;
+      margin-bottom: 1rem;
+      animation: float 3s ease-in-out infinite;
+      
+      img {
+        width: 140px;
+        height: 140px;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+      }
+    }
+    
+    .temperature {
+      margin: 0.5rem 0;
+      
+      .temp-value {
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -2px;
+      }
+      
+      .temp-unit {
+        font-size: 1.6rem;
+        vertical-align: super;
+        opacity: 0.9;
+      }
+    }
+    
+    .description {
+      font-size: 1.2rem;
+      text-align: center;
+      font-weight: 500;
+      margin-top: 0.5rem;
+      opacity: 0.95;
+      text-transform: capitalize;
+    }
+  }
+  
+  .weather-details {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 1.5rem;
+    
+    .detail-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding: 0.6rem 0;
+      transition: transform 0.2s ease;
+      
+      &:hover {
+        transform: translateX(4px);
+      }
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      i {
+        margin-right: 1rem;
+        font-size: 1.3rem;
+        width: 24px;
+        text-align: center;
+        opacity: 0.9;
+      }
+      
+      span {
+        font-size: 1rem;
+        opacity: 0.95;
+      }
+    }
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

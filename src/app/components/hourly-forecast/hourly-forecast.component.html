@@ -1,0 +1,33 @@
+<div class="hourly-forecast-card h-100">
+    <div class="card h-100">
+      <div class="card-body">
+        <h3 class="card-title">
+          Hourly Forecast
+          <span class="scroll-buttons">
+            <button class="btn btn-sm btn-light" [disabled]="!canScrollLeft" (click)="scrollLeft()">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            <button class="btn btn-sm btn-light" [disabled]="!canScrollRight" (click)="scrollRight()">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </span>
+        </h3>
+        
+        <div class="hourly-scroll-container" #scrollContainer (scroll)="checkScrollButtons()">
+          <div class="hourly-items">
+            <div class="hourly-item" *ngFor="let hour of hourlyForecast">
+              <div class="time">{{ formatTime(hour.time) }}</div>
+              <div class="icon">
+                <img [src]="getWeatherIconUrl(hour.icon)" [alt]="hour.description">
+              </div>
+              <div class="temp">{{ hour.temperature | number:'1.0-0' }}°C</div>
+              <div class="feels-like">Feels: {{ hour.feelsLike | number:'1.0-0' }}°C</div>
+              <div class="precip" *ngIf="hour.precipitation > 0">
+                <i class="bi bi-droplet"></i> {{ hour.precipitation }}%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
