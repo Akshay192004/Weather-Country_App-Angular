@@ -26,7 +26,7 @@
         <!-- Weather data display -->
         <div *ngIf="weatherData && !isLoading" class="weather-content">
           <div class="location-header text-center mb-4">
-            <h2 class="humanized-title">
+            <h2>
               <i class="bi bi-geo-alt-fill me-2"></i>
               {{ weatherData.location.name }}, {{ weatherData.location.country }}
             </h2>
@@ -34,12 +34,8 @@
           </div>
           
           <div class="row">
-            <div class="col-md-4 mb-4">
+            <div class="col-12 mb-4">
               <app-current-weather [currentWeather]="weatherData.current"></app-current-weather>
-            </div>
-            
-            <div class="col-md-8 mb-4">
-              <app-hourly-forecast [hourlyForecast]="weatherData.hourly"></app-hourly-forecast>
             </div>
           </div>
           

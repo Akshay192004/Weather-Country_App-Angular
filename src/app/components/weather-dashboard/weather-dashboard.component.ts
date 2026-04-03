@@ -2,7 +2,6 @@ import { CommonModule, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LocationSelectorComponent } from '../location-selector/location-selector.component';
 import { CurrentWeatherComponent } from '../current-weather/current-weather.component';
-import { HourlyForecastComponent } from '../hourly-forecast/hourly-forecast.component';
 import { DailyForecastComponent } from '../daily-forecast/daily-forecast.component';
 import { WeatherData } from '../../models/weather-data.model';
 import { Subscription, take } from 'rxjs';
@@ -17,7 +16,6 @@ import { UserLocation } from '../../models/user-location.model';
     CommonModule,
     LocationSelectorComponent,
     CurrentWeatherComponent,
-    HourlyForecastComponent,
     DailyForecastComponent
   ],
   templateUrl: './weather-dashboard.component.html',

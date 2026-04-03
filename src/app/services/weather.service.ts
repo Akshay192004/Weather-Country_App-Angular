@@ -73,16 +73,6 @@ export class WeatherService {
       timestamp: currentData.dt
     };
 
-    // ✅ Hourly (next 24 hours → 8 items, 3-hour interval)
-    const hourly = forecastData.list.slice(0, 8).map((item: any) => ({
-      time: item.dt,
-      temperature: item.main.temp,
-      feelsLike: item.main.feels_like,
-      icon: item.weather[0].icon,
-      description: item.weather[0].description,
-      precipitation: item.pop * 100
-    }));
-
     // ✅ Daily (every 24 hours → pick every 8th item)
     const daily = forecastData.list
       .filter((_: any, index: number) => index % 8 === 0)
@@ -100,7 +90,6 @@ export class WeatherService {
 
     return {
       current,
-      hourly,
       daily,
       location: {
         name: currentData.name,

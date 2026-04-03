@@ -1,8 +1,8 @@
-<p>daily-forecast works!</p>
+
 <div class="daily-forecast-card">
     <div class="card">
       <div class="card-body">
-        <h3 class="card-title humanized-title">7-Day Forecast</h3>
+        <h3 class="card-title">7-Day Forecast</h3>
         
         <div class="daily-items">
           <div class="daily-item" *ngFor="let day of dailyForecast">
@@ -22,9 +22,6 @@
               </div>
               <div class="detail" *ngIf="day.precipitation > 0">
                 <i class="bi bi-cloud-rain-fill"></i> {{ day.precipitation }}%
-              </div>
-              <div class="detail">
-                <i class="bi bi-wind"></i> {{ day.windSpeed | number:'1.0-0' }} m/s
               </div>
             </div>
           </div>
