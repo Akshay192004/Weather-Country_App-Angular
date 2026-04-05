@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError, forkJoin } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable, throwError, forkJoin, of } from 'rxjs';
+import { map, catchError, mergeMap } from 'rxjs/operators';
 import { WeatherData } from '../models/weather-data.model';
 
 @Injectable({
@@ -12,8 +12,22 @@ export class WeatherService {
 
   private readonly API_URL = 'https://api.openweathermap.org/data/2.5';
   private readonly API_KEY = environment.weatherApiKey;
+  private readonly COUNTRIES_API_URL = 'https://restcountries.com/v3.1';
+  private readonly FLAG_API_URL = 'https://flagcdn.com';
 
   constructor(private http: HttpClient) {}
+
+  getCountryData(countryCode: string): Observable<any> {
+    return this.http.get<any>(`${this.COUNTRIES_API_URL}/alpha/${countryCode}`);
+  }
+
+  private getFlagUrl(countryCode: string): string {
+    if (!countryCode || countryCode.length !== 2) {
+      return '';
+    }
+    // Use FlagCDN for reliable flag images
+    return `${this.FLAG_API_URL}/32x24/${countryCode.toLowerCase()}.png`;
+  }
 
   getWeatherByCoordinates(lat: number, lon: number): Observable<WeatherData> {
 
@@ -27,8 +41,17 @@ export class WeatherService {
 
     return forkJoin([current$, forecast$]).pipe(
       map(([currentData, forecastData]) => {
-        return this.transformData(currentData, forecastData);
+        // Try to get country data if country code is available
+        if (currentData.sys?.country) {
+          return this.getCountryData(currentData.sys.country).pipe(
+            map(countryData => this.transformData(currentData, forecastData, countryData[0])),
+            catchError(() => of(this.transformData(currentData, forecastData)))
+          );
+        } else {
+          return of(this.transformData(currentData, forecastData));
+        }
       }),
+      mergeMap(obs => obs),
       catchError(error => {
         console.error('Error fetching weather data:', error);
         return throwError(() => new Error('Failed to load weather data.'));
@@ -46,18 +69,25 @@ export class WeatherService {
       `${this.API_URL}/forecast?q=${cityName},${countryCode}&appid=${this.API_KEY}&units=metric`
     );
 
-    return forkJoin([current$, forecast$]).pipe(
-      map(([currentData, forecastData]) => {
-        return this.transformData(currentData, forecastData);
+    const country$ = this.getCountryData(countryCode);
+
+    return forkJoin([current$, forecast$, country$]).pipe(
+      map(([currentData, forecastData, countryData]) => {
+        return this.transformData(currentData, forecastData, countryData[0]);
       }),
       catchError(error => {
-        console.error('Error fetching weather data:', error);
-        return throwError(() => new Error('Failed to load weather data.'));
+        console.error('Error fetching country data:', error);
+        // Still return weather data even if country data fails
+        return forkJoin([current$, forecast$]).pipe(
+          map(([currentData, forecastData]) => {
+            return this.transformData(currentData, forecastData);
+          })
+        );
       })
     );
   }
 
-  private transformData(currentData: any, forecastData: any): WeatherData {
+  private transformData(currentData: any, forecastData: any, countryData?: any): WeatherData {
 
     // ✅ Current weather
     const current = {
@@ -95,7 +125,8 @@ export class WeatherService {
         name: currentData.name,
         country: currentData.sys.country,
         lat: currentData.coord.lat,
-        lon: currentData.coord.lon
+        lon: currentData.coord.lon,
+        flag: this.getFlagUrl(currentData.sys.country)
       }
     };
   }

@@ -1,0 +1,16 @@
+.location-header {
+  .country-flag {
+    width: 32px;
+    height: 24px;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    vertical-align: middle;
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}

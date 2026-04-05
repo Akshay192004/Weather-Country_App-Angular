@@ -9,5 +9,6 @@ export interface WeatherData {
       country: string;
       lat: number;
       lon: number;
+      flag?: string;
     };
   }

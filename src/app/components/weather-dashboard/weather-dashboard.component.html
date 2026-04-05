@@ -29,6 +29,7 @@
             <h2>
               <i class="bi bi-geo-alt-fill me-2"></i>
               {{ weatherData.location.name }}, {{ weatherData.location.country }}
+              <img *ngIf="weatherData.location.flag" [src]="weatherData.location.flag" [alt]="weatherData.location.country + ' flag'" class="country-flag ms-2" (error)="onFlagError($event)">
             </h2>
             <p class="text-muted">Last updated: {{ weatherData.current.timestamp * 1000 | date:'medium' }}</p>
           </div>

@@ -100,6 +100,12 @@ export class WeatherDashboardComponent implements OnInit, OnDestroy {
     });
   }
 
+  onFlagError(event: Event): void {
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.style.display = 'none';
+    console.warn('Failed to load flag image for country');
+  }
+
   ngOnDestroy(): void {
     if (this.locationSubscription) {
       this.locationSubscription.unsubscribe();
